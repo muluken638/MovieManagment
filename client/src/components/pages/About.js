@@ -8,7 +8,7 @@ function About() {
         <>
         <MyNavbar/>
         {/* <Home/> */}
-         <div class="py-7 bg-light">
+         <div class="pt-10 bg-light">
             <section className="section">
                 <div className='container'>
                     <div className='row'>
