@@ -6,7 +6,7 @@ import { MdDelete } from "react-icons/md";
 import MyNavbar from "./MyNavbar";
 import Sidebar from "./Sidebar";
 const MovieList = () => {
-  const [movie, setMovies] = useState([]);
+  const [movie, setMovies] = useState([0]);
   const [selectedRecord, setSelectedRecord] = useState(null);
 
   // grap user list
