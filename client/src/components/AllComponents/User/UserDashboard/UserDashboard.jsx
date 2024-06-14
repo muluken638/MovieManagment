@@ -21,9 +21,8 @@ const UserDashboard = () => {
           image :"https://via.placeholder.com/300x200",
             // image:movie.image,
 
-            // image: "https://via.placeholder.com/300x200",
+            //image: "https://via.placeholder.com/300x200",
             image: movie.image,
-
             title: movie.title,
             genre: movie.genre,
             director: movie.director,
@@ -64,6 +63,13 @@ const UserDashboard = () => {
       newStates[index] = !newStates[index];
       return newStates;
     });
+  };
+
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
   return (
     <>
@@ -109,9 +115,9 @@ const UserDashboard = () => {
           <div>
             <h1>{selectedGenre || "All Movies"}</h1>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white justify-center align-middle">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white justify-center align-middle cursor-pointer">
             {filteredCards.map((card, index) => (
-              <div className=" rounded-lg shadow-md p-1 " key={index}>
+              <div className=" rounded-lg shadow-md p-1 border-2 border-[#D0D5DD] border-solid border-transparent hover:border-[#D0D5DD] transition-all duration-300 cursor-pointer " key={index}>
                 <div className="flex gap-3">
                     <div className="text-bold text-14 text-blue-600">
                       Film Title:{" "}
@@ -121,7 +127,7 @@ const UserDashboard = () => {
                       <h6 className="text-12">{card.title}</h6>
                     </div>{" "}
                   </div>
-                <img src={card.image} className="h-[250px] w-full p-2" />
+                <img src={cardimage} className="h-[250px] w-full p-2" />
                 <div className="flex flex-col">
                   <div className="flex gap-3">
                     {" "}
