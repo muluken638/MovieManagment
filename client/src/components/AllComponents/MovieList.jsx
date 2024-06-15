@@ -16,7 +16,7 @@ const MovieList = () => {
 
   // fetching employee list
   const fetchMovie = () => {
-    Axios.get("http://localhost:3001/movielist")
+    Axios.get("http://localhost:8080/movielist")
       .then((response) => {
         setMovies(response.data);
       })
@@ -115,7 +115,7 @@ const MovieList = () => {
                         <td>{movies.year}</td>
                         <td>{movies.duration}</td>
                         <td>{movies.genre}</td>
-                        <td>{movies.image}</td>
+                        <td className="h-20 w-20 rounded-full"><img src={movies.image} style={{width:"100%", height:"100%" ,borderRadius:'10px'}}></img></td>
                         <td>{movies.cast}</td>
                         <td className="px-4 py-2 border-b">
                           <div className="flex gap-2">

@@ -91,7 +91,7 @@ const MovieRegistrationForm = () => {
       formData.append("releaseYear", releaseYear);
       formData.append("Rating", rating);
 
-      Axios.post(`http://localhost:3001/moviecreate`, formData, {
+      Axios.post(`http://localhost:8080/moviecreate`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -105,8 +105,12 @@ const MovieRegistrationForm = () => {
           setDirector("");
           setGenre("");
           setSelectedImage(null);
+
+          navigate("/movielist")
+
           setCast("");
           Navigate("/movielist");
+
         })
         .catch((error) => {
           console.log("Error:", error);
