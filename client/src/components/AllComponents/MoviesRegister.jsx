@@ -87,7 +87,7 @@ const navigate=useNavigate();
       formData.append("genre", genre);
       formData.append("image", selectedImage);
 
-      Axios.post(`http://localhost:3001/moviecreate`, formData, {
+      Axios.post(`http://localhost:8080/moviecreate`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -101,7 +101,7 @@ const navigate=useNavigate();
           setDirector("");
           setGenre("");
           setSelectedImage(null);
-          Navigate("/movielist")
+          navigate("/movielist")
         })
         .catch((error) => {
           console.log("Error:", error);

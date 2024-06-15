@@ -50,7 +50,7 @@ const Report = () => {
 
   // fetching employee list 
   const fetchMovieTotal = () => {
-    Axios.get('http://localhost:3001/totalmovies')
+    Axios.get('http://localhost:8080/totalmovies')
       .then((response) => {
         setMoviestotal(response.data.total_movies);
       })
@@ -61,7 +61,7 @@ const Report = () => {
 
   // request to get total action movies 
   const fetchTotalAction = () => {
-    Axios.get('http://localhost:3001/totaactionmovies')
+    Axios.get('http://localhost:8080/totalactionmovies')
       .then((response) => {
         settotalAMovies(response.data.total_action_movies);
       })
@@ -71,7 +71,7 @@ const Report = () => {
   };
   // request to get the total of romance movies
   const fetchTotalRomance = () => {
-    Axios.get('http://localhost:3001/totalromancemovies')
+    Axios.get('http://localhost:8080/totalromancemovies')
       .then((response) => {
         settotalromanceMovies(response.data.total_romance_movies);
       })
@@ -81,7 +81,7 @@ const Report = () => {
   };
 
   const fetchTotalDrama = () => {
-    Axios.get('http://localhost:3001/totaldramaamovies')
+    Axios.get('http://localhost:8080/totaldramamovies')
       .then((response) => {
         setTotalDrama(response.data.total_drama_movies);
       })
@@ -89,6 +89,16 @@ const Report = () => {
         console.log('error', error);
       });
   };
+  const fetchTotaActionmovies = () => {
+    Axios.get('http://localhost:8080/totalactionmovies')
+      .then((response) => {
+        settotalAMovies(response.data.total_action_movies);
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
+  
   const data1 = [
     { name: 'Total Movies', value: totalmovies },
     { name: 'Total Drama Movies', value: totaldrama },

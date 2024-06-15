@@ -10,18 +10,18 @@ const UserDashboard = () => {
   const [imageCards, setImageCards] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("");
   const [clickedCardIndex, setClickedCardIndex] = useState(-1);
+
+
+
   const fetchMovieList = () => {
     axios
-      .get("http://localhost:3001/genres")
+      .get("http://localhost:8080/genres")
       .then((response) => {
         setMovies(response.data);
         setImageCards(
           response.data.map((movie) => ({
 
-            // image :"https://via.placeholder.com/300x200",
-            // image:movie.image,
-
-            // image: "https://via.placeholder.com/300x200",
+       
             image: movie.image,
 
             title: movie.title,
@@ -34,6 +34,8 @@ const UserDashboard = () => {
         console.log("error", error);
       });
   };
+
+
 
   useEffect(() => {
     fetchMovieList();

@@ -23,6 +23,7 @@ model Movie {
   rating      Float?
   plotSummary String?
   cast        String?
+  wishlist  wishlist[]
 }
 
 model NewData {
@@ -39,6 +40,12 @@ model UserRegistration {
   username  String @unique
   password  String
   role      Int    @default(0)
+}
+model wishlist {
+  id          Int                     @id @default(autoincrement())
+  title       String                  @db.VarChar(255)
+  image        String                   @db.VarChar(255)
+  Movie    Movie?               @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum Genre {
