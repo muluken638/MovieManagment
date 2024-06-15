@@ -44,7 +44,7 @@ const MovieRegistrationForm = () => {
   const [directorError, setDirectorError] = useState("");
   const [genreError, setGenreError] = useState("");
   const [imageError, setImageError] = useState("");
-const navigate=useNavigate();
+  const navigate = useNavigate();
   const addMovie = (e) => {
     e.preventDefault();
 
@@ -86,6 +86,10 @@ const navigate=useNavigate();
       formData.append("director", director);
       formData.append("genre", genre);
       formData.append("image", selectedImage);
+      formData.append("plot_summary", plotSummary);
+      formData.append("Cast", cast);
+      formData.append("releaseYear", releaseYear);
+      formData.append("Rating", rating);
 
       Axios.post(`http://localhost:8080/moviecreate`, formData, {
         headers: {
@@ -101,7 +105,12 @@ const navigate=useNavigate();
           setDirector("");
           setGenre("");
           setSelectedImage(null);
+
           navigate("/movielist")
+
+          setCast("");
+          Navigate("/movielist");
+
         })
         .catch((error) => {
           console.log("Error:", error);
@@ -134,6 +143,7 @@ const navigate=useNavigate();
               className="bg-white shadow rounded px-3 mt-1  w-full "
             >
               <div className="flex flex-row gap-4 justify-between">
+                {/* title */}
                 <div className="mb-4 w-[50%]">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -151,6 +161,7 @@ const navigate=useNavigate();
                     onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
+                {/* Director */}
                 <div className="mb-4 w-[50%]">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -168,6 +179,7 @@ const navigate=useNavigate();
                     onChange={(e) => setDirector(e.target.value)}
                   />
                 </div>
+                {/* Genere */}
                 <div className="mb-4 w-[50%]">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -205,6 +217,7 @@ const navigate=useNavigate();
                 </div>
               </div>
               <div className="flex flex-row gap-4 justify-between">
+                {/* Release Year */}
                 <div className="mb-4 w-[50%]">
                   <label
                     for="movie-year"
@@ -214,15 +227,18 @@ const navigate=useNavigate();
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    type="number"
+                    type="Date"
                     id="movie-year"
                     name="movie-year"
                     min="1900"
                     max="2100"
                     step="1"
                     placeholder="Enter the year"
+                    value={releaseYear}
+                    onChange={(e) => setReleaseYear(e.target.value)}
                   />
                 </div>
+                {/* Duration */}
                 <div className="mb-4 w-[50%]">
                   <label
                     for="movie-duration"
@@ -231,15 +247,18 @@ const navigate=useNavigate();
                     Movie Duration (minutes):
                   </label>
                   <input
-                    type="number"
+                    type="time"
                     id="movie-duration"
                     name="movie-duration"
                     min="0"
                     step="1"
                     placeholder="Enter the Duration "
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    value={runtime}
+                    onChange={(e) => setRuntime(e.target.value)}
                   />
                 </div>
+                {/* Cast */}
                 <div className="mb-4 w-[50%]">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -259,19 +278,26 @@ const navigate=useNavigate();
                 </div>
               </div>
               <div className="flex flex-col  justify-between">
+                {/* Descriptio */}
                 <label for="movie-description">Movie Description:</label>
                 <textarea
                   id="movie-description"
                   name="movie-description"
                   rows="3"
                   cols="50"
+                  typeof="text"
                   height="50px"
                   placeholder="Enter a brief description of the movie"
                   className="border-2 p-2"
+                  required
+                  value={plotSummary}
+                  onChange={(e) => setPlotSummary(e.target.value)}
                 ></textarea>
               </div>
 
               <div className="flex flex-row gap-4 justify-between">
+                {/* Image */}
+
                 <div className="mb-4 w-[50%]">
                   <div className="flex flex-row mt-3 justify-between">
                     <label
@@ -280,15 +306,18 @@ const navigate=useNavigate();
                     >
                       Attach Image
                     </label>
+                    {/* <input type="file" accept="image/*" multiple name="images[]" /> */}
+
                     <input
                       className="shadow appearance-none border rounded  py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="title"
                       type="file"
+                      accept="image/*" multiple name="images[]"
                       placeholder="select Image"
                       onChange={handleImageChange}
                       key={inputKey} // Use the inputKey to force re-render
                     />
-                 
+
                     {selectedImage && (
                       <img
                         width="100"
@@ -301,7 +330,7 @@ const navigate=useNavigate();
                   </div>
                 </div>
                 {/* Other form fields */}
-                <div className="flex items-center justify-between">
+                <div classNzzame="flex items-center justify-between">
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit"
