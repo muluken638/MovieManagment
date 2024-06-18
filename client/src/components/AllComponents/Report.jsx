@@ -13,11 +13,11 @@ const Report = () => {
 
 
   const [genreData, setGenreData] = useState([]);
-
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#9b59b6', '#e74c3c', '#34495e', '#2980b9', '#f1c40f', '#7f8c8d'];
   useEffect(() => {
     const fetchGenreData = async () => {
       try {
-        const response = await Axios.get('http://localhost:3001/movie-genres');
+        const response = await Axios.get('http://localhost:8080/genre-data');
         setGenreData(response.data);
       } catch (error) {
         console.error('Error fetching genre data:', error);
@@ -26,102 +26,20 @@ const Report = () => {
 
     fetchGenreData();
   }, []);
-  const [data, setData] = useState([]);
 
 
+  // Line Chart Data
+  const lineChartData = genreData.map((item) => ({
+    genre: item.genre,
+    count: item.count,
+  }));
 
-
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-  const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  };
-  const [totaldrama, setTotalDrama] = useState(0);
-
-  const [totalmovies, setMoviestotal] = useState(0);
-  const [totalActionmovies, settotalAMovies] = useState(0);
-  const [totalRomancemovies, settotalromanceMovies] = useState(0);
-  // const [selectedRecord, setSelectedRecord] = useState(null);
-
-  // grap user list
-  useEffect(() => {
-    fetchMovieTotal();
-    fetchTotalAction();
-    fetchTotalRomance();
-    fetchTotalDrama();
-
-
-  }, []);
-
-  // fetching employee list 
-  const fetchMovieTotal = () => {
-    Axios.get('http://localhost:8080/totalmovies')
-      .then((response) => {
-        setMoviestotal(response.data.total_movies);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
-  };
-
-  // request to get total action movies 
-  const fetchTotalAction = () => {
-    Axios.get('http://localhost:8080/totalactionmovies')
-      .then((response) => {
-        settotalAMovies(response.data.total_action_movies);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
-  };
-  // request to get the total of romance movies
-  const fetchTotalRomance = () => {
-    Axios.get('http://localhost:8080/totalromancemovies')
-      .then((response) => {
-        settotalromanceMovies(response.data.total_romance_movies);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
-  };
-
-  const fetchTotalDrama = () => {
-    Axios.get('http://localhost:8080/totaldramamovies')
-      .then((response) => {
-        setTotalDrama(response.data.total_drama_movies);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
-  };
-  const fetchTotaActionmovies = () => {
-    Axios.get('http://localhost:8080/totalactionmovies')
-      .then((response) => {
-        settotalAMovies(response.data.total_action_movies);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
-  };
-  
-  const data1 = [
-    { name: 'Total Movies', value: totalmovies },
-    { name: 'Total Drama Movies', value: totaldrama },
-    { name: 'Total Romance Movies', value: totalRomancemovies },
-  ];
-
-  const getLineColor = (index) => {
-    const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#9966FF', '#00BFFF'];
-    return colors[index % colors.length];
-  };
+ // Pie Chart Data
+ const pieChartData = genreData.map((item, index) => ({
+  name: item.genre,
+  value: item.count,
+  color: COLORS[index % COLORS.length],
+}));
 
   return (
     <>
@@ -160,58 +78,32 @@ const Report = () => {
               ))}
 
             </div>
-
+{/* /Cahrts are avialabe here */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-[30px] mt-[25px] pb-[15px] h-[90%]">
 
               <div className="h-[300px] rounded-[8px]  border-l-[4px] border-[#293A77]  p-4">
                 <h1 className="text-[#293A77]  text-[20px] leading-[24px] font-bold mb-[10px]">Movies Overview</h1>
                 <ResponsiveContainer width="90%" height="90%">
-                  <LineChart
-                    width="100%"
-                    height={300}
-                    data={data1}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
+                  <LineChart width={600} height={400} data={lineChartData}>
+                    <XAxis dataKey="genre" />
                     <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip />
-                    {data1.map((item, index) => (
-                      <Line
-                        key={index}
-                        type="monotone"
-                        dataKey="value"
-                        name={item.name}
-                        stroke={getLineColor(index)}
-                        activeDot={{ r: 8 }}
-                      />
-                    ))}
+                    <Legend />
+                    <Line type="monotone" dataKey="count" stroke="#8884d8" />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
               <div className="h-[300px] rounded-[8px] bg-white border-l-[4px] border-[#293A77]  p-4">
                 <h1 className="text-[#293A77] text-[20px] leading-[24px] font-bold mb-[10px]">Movies Overview</h1>
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={data1}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={renderCustomizedLabel}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {data1.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                <ResponsiveContainer width="100%" height="100%" >
+                  <PieChart width={400} height={400}>
+                    <Pie data={pieChartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" >
+                      {pieChartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
+                    <Tooltip />
                     <Legend />
                   </PieChart>
                 </ResponsiveContainer>
