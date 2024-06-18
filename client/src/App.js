@@ -29,6 +29,7 @@ import ProfileUpdate from "./components/AllComponents/User/UserDashboard/Profile
 import About from "./components/pages/About";
 import Help from "./components/pages/help";
 import Contact from "./components/pages/contact";
+import EditMovies from "./components/AllComponents/editmovies";
 // import Home from "./components/pages/Home";
 
 function App() {
@@ -51,6 +52,8 @@ function App() {
           <Route path="/watchlists" element={<Watchlist />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profileupdate" element={<ProfileUpdate />} />
+          <Route path="/editmovies" element={<EditMovies/>} />
+      
           {/* Movies add */}
           <Route path="/moviecreate" element={<MovieRegistrationForm />} />
           <Route path="/home" element={<Home />} />

@@ -44,6 +44,8 @@ model UserRegistration {
 model wishlist {
   id          Int                     @id @default(autoincrement())
   title       String                  @db.VarChar(255)
+  director      String                  @db.VarChar(255)
+  genre       String                  @db.VarChar(255)
   image        String                   @db.VarChar(255)
   Movie    Movie?               @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
