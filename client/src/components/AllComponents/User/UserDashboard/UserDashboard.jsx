@@ -17,7 +17,25 @@ const navigate=useNavigate();
       .get("http://localhost:8080/movielist")
       .then((response) => {
         setMovies(response.data);
+
         setHeartStates(response.data.map(() => false));
+=======
+        setImageCards(
+          response.data.map((movie) => ({
+
+
+            // image :"https://via.placeholder.com/300x200",
+            // image:movie.image,
+
+            //image: "https://via.placeholder.com/300x200",
+
+            image: movie.image,
+            title: movie.title,
+            genre: movie.genre,
+            director: movie.director,
+          }))
+        );
+
       })
       .catch((error) => {
         console.log("Error fetching movies:", error);
@@ -62,6 +80,23 @@ const navigate=useNavigate();
     ? movies.filter((movie) => movie.genre.includes(selectedGenre))
     : movies;
 
+
+=======
+  const handleHeartClick = (index) => {
+    setHeartStates((prevStates) => {
+      const newStates = [...prevStates];
+      newStates[index] = !newStates[index];
+      return newStates;
+    });
+  };
+
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <>
       <MyNavbar />
@@ -98,6 +133,7 @@ const navigate=useNavigate();
           <div>
             <h1>{selectedGenre || "All Movies"}</h1>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white justify-center align-middle">
             {filteredMovies.map((movie, index) => (
               <div className="rounded-lg shadow-md p-1" key={index}>
@@ -108,6 +144,21 @@ const navigate=useNavigate();
                   </div>{" "}
                 </div>
                 <img src={movie.image} className="h-[250px] w-full p-2" />
+=======
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white justify-center align-middle cursor-pointer">
+            {filteredCards.map((card, index) => (
+              <div className=" rounded-lg shadow-md p-1 border-2 border-[#D0D5DD] border-solid border-transparent hover:border-[#D0D5DD] transition-all duration-300 cursor-pointer " key={index}>
+                <div className="flex gap-3">
+                    <div className="text-bold text-14 text-blue-600">
+                      Film Title:{" "}
+                    </div>
+                    
+                    <div>
+                      <h6 className="text-12">{card.title}</h6>
+                    </div>{" "}
+                  </div>
+                <img src={cardimage} className="h-[250px] w-full p-2" />
+
                 <div className="flex flex-col">
                   <div className="flex gap-3">
                     {" "}

@@ -10,9 +10,22 @@ import MyNavbar from "./MyNavbar";
 import Sidebar from "./Sidebar";
 import Axios from "axios";
 const Report = () => {
-  // const dispatch = useDispatch();
-  // const [showSuccess, setShowSuccess] = useState(true);
-  // const [report, setReport] = useState(null);
+
+
+  const [genreData, setGenreData] = useState([]);
+
+  useEffect(() => {
+    const fetchGenreData = async () => {
+      try {
+        const response = await Axios.get('http://localhost:3001/movie-genres');
+        setGenreData(response.data);
+      } catch (error) {
+        console.error('Error fetching genre data:', error);
+      }
+    };
+
+    fetchGenreData();
+  }, []);
   const [data, setData] = useState([]);
 
 
@@ -115,73 +128,46 @@ const Report = () => {
       <MyNavbar />
       <div className="flex h-screen">
         <Sidebar />
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto ">
 
           <div className="pt-[25px] px-[25px] bg-[#F8F9FC]">
             <div className="flex items-center justify-between">
               <h1 className="text-[#293A77]  text-[28px]  font-normal cursor-pointer">Dashboard</h1>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-4 gap-[30px] mt-[25px] pb-[15px]">
-
+            <div className=" flex-cols-1 flex overflow-x-auto flex-nowrap sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mt-[25px] pb-[15px]">
+              <div className="h-[100px]  rounded-[8px] bg-[#293A77] border-l-[4px] border-[#4E73DF] flex flex-col  items-center justify-center px-10 cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-150 ease-out">
+                <div>
+                  <h3 className="text-white text-[18px] font-bold">TotalGenres</h3>
+                </div>
+                <div>
+                  <h5 className="text-white font-bold">{genreData.reduce((total, item) => total + item.count, 0)}</h5>
+                </div>
+              </div>
               {/* <Link to={"/pages/detailreport"}> */}
 
-
-              <div className="h-[100px] rounded-[8px] bg-[#293A77]  border-l-[4px] border-[#4E73DF] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-150 ease-out">
-                <div>
-                  <h3 className="text-white text-[18px]  font-bold text-center">Total Movies</h3>
-                  <h5 className="text-white  font-bold text-[#5a5c69] mt-[5px]  text-center">{totalmovies}</h5>
+              {genreData.map(({ genre, count }, index) => (
+                <div
+                  key={genre || `empty-card-${index}`}
+                  className={`h-[100px]  rounded-[8px] bg-[#293A77] border-l-[4px] border-[#4E73DF] flex  items-center justify-between px-10 cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-150 ease-out ${genre ? '' : 'opacity-50 cursor-not-allowed'
+                    }`}
+                >
+                  <div>
+                    <h3 className="text-white text-[18px] font-bold text-center">{genre || 'No Genre'}</h3>
+                    <h5 className="text-white font-bold  mt-[5px] text-center">{count}</h5>
+                  </div>
                 </div>
-                {/* <IoHomeOutline /> */}
-              </div>
-              {/* </Link> */}
+              ))}
 
-              <div className="h-[100px] rounded-[8px] bg-[#293A77]  border-l-[4px] border-[#4E73DF] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-150 ease-out">
-                {/* <Link to={"/pages/dailyreportdetail"}style={{ textDecoration: 'none' }}> */}
-                <div>
-                  <h3 className="text-white text-[18px]  font-bold text-center">Total Action movies </h3>
-                  <h5 className="text-white font-bold text-[#5a5c69] mt-[5px]  text-center">{totalActionmovies}</h5>
-                </div>
-
-                {/* <IoHomeOutline /> */}
-                {/* </Link> */}
-
-              </div>
-
-              <div className="h-[100px] rounded-[8px] bg-[#293A77]  border-l-[4px] border-[#4E73DF] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-150 ease-out">
-                {/* <Link to={"/pages/monthlyreportdetail"}style={{ textDecoration: 'none' }}> */}
-                <div>
-                  <h3 className="text-white text-[16px]  font-bold text-center">Total Romance Movies</h3>
-                  <h5 className="text-white  font-bold text-[#5a5c69] mt-[5px] text-center">{totalRomancemovies}</h5>
-
-                </div>
-
-                {/* <IoHomeOutline /> */}
-                {/* </Link> */}
-
-              </div>
-
-              <div className="h-[100px] rounded-[8px] bg-[#293A77]  border-l-[4px] border-[#4E73DF] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-150 ease-out">
-                {/* <Link to={"/pages/yearlyreportdetail"}style={{ textDecoration: 'none' }}> */}
-                <div>
-                  <h3 className="text-white text-[16px]  font-bold text-center">Total Drama Movies</h3>
-                  <h5 className="text-white  font-bold text-[#5a5c69] mt-[5px] text-center">{totaldrama}</h5>
-                </div>
-
-                {/* <IoHomeOutline /> */}
-                {/* </Link> */}
-
-              </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-[30px] mt-[25px] pb-[15px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-[30px] mt-[25px] pb-[15px] h-[90%]">
 
-
-              <div className="h-[400px] rounded-[8px]  border-l-[4px] border-[#293A77]  p-4">
+              <div className="h-[300px] rounded-[8px]  border-l-[4px] border-[#293A77]  p-4">
                 <h1 className="text-[#293A77]  text-[20px] leading-[24px] font-bold mb-[10px]">Movies Overview</h1>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="90%" height="90%">
                   <LineChart
-                    width={500}
+                    width="100%"
                     height={300}
                     data={data1}
                     margin={{
@@ -208,7 +194,7 @@ const Report = () => {
                   </LineChart>
                 </ResponsiveContainer>
               </div>
-              <div className="h-[400px] rounded-[8px] bg-white border-l-[4px] border-[#293A77]  p-4">
+              <div className="h-[300px] rounded-[8px] bg-white border-l-[4px] border-[#293A77]  p-4">
                 <h1 className="text-[#293A77] text-[20px] leading-[24px] font-bold mb-[10px]">Movies Overview</h1>
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>

@@ -12,9 +12,13 @@ import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
 
 const MovieList = () => {
+
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4); 
   const [movie, setMovies] = useState([]);
+
+  const [movie, setMovies] = useState([0]);
+
   const [selectedRecord, setSelectedRecord] = useState(null);
   
 const navigate=useNavigate();

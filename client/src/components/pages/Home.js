@@ -5,9 +5,9 @@ import Vms from "../inc/mission";
 import Navbar from "../inc/navbar";
 import image1 from "../image/action2.jpg";
 import image3 from "../image/action5.jpg";
-import image2 from "../image/ction6.jpg";
-import slider2 from "../image/slider2.jpg";
-import slider3 from "../image/slider3.jpg";
+import image2 from "../image/comeddy.jpg";
+import image4 from "../image/romance.png";
+import image5 from "../image/romance.jpg";
 import Footer from "../inc/footer";
 import MyNavbar from "../inc/HomeNavbar";
 import { useState } from "react";
@@ -55,7 +55,7 @@ function Home() {
                 src={image3}
                 alt="Slider2"
                 style={{
-                  width: "700px",
+                  width: "100%",
                   height: "350px",
                   borderRadius: "20px",
                   boxShadow:
@@ -72,7 +72,49 @@ function Home() {
                 src={image2}
                 alt="Slider3"
                 style={{
-                  width: "700px",
+                  width: "100%",
+                  height: "350px",
+                  borderRadius: "20px",
+
+                  boxShadow:
+                    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                }}
+              />
+              <Carousel.Caption>
+                <h3>Third slide label</h3>
+                <p>
+                  Praesent commodo cursus magna, vel scelerisque nisl
+                  consectetur.
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                src={image4}
+                alt="Slider3"
+                style={{
+                  width: "100%",
+                  height: "350px",
+                  borderRadius: "20px",
+
+                  boxShadow:
+                    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                }}
+              />
+              <Carousel.Caption>
+                <h3>Third slide label</h3>
+                <p>
+                  Praesent commodo cursus magna, vel scelerisque nisl
+                  consectetur.
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                src={image5}
+                alt="Slider3"
+                style={{
+                  width: "100%",
                   height: "350px",
                   borderRadius: "20px",
 
