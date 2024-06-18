@@ -86,6 +86,63 @@ router.get("/totalmovies", async (req, res) => {
     }
   });
 
+
+  router.get("/genre-data",async(req, res)=> {
+  try {
+    const genreData = await prisma.$queryRaw`
+      SELECT
+        genre,
+        CAST(COUNT(*) AS SIGNED) AS count
+      FROM
+        Movie
+      GROUP BY
+        genre
+      ORDER BY
+        count DESC;
+    `;
+
+    // Convert the BigInt values to standard numbers
+    const formattedData = genreData.map((item) => ({
+      genre: item.genre,
+      count: Number(item.count),
+    }));
+
+    res.status(200).json(formattedData);
+  } catch (error) {
+    console.error('Error fetching genre data:', error);
+    res.status(500).json({ error: 'Error fetching genre data' });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+router.get("/genre-data",async(req, res)=> {
+  try {
+    const genreData = await prisma.$queryRaw`
+      SELECT
+        genre,
+        CAST(COUNT(*) AS SIGNED) AS count
+      FROM
+        Movie
+      GROUP BY
+        genre
+      ORDER BY
+        count DESC;
+    `;
+
+    // Convert the BigInt values to standard numbers
+    const formattedData = genreData.map((item) => ({
+      genre: item.genre,
+      count: Number(item.count),
+    }));
+
+    res.status(200).json(formattedData);
+  } catch (error) {
+    console.error('Error fetching genre data:', error);
+    res.status(500).json({ error: 'Error fetching genre data' });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
   
 // end point to get total number of action movires
 router.get('/totaactionmovies', async (req, res) => {
