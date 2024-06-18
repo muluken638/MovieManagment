@@ -14,7 +14,7 @@ const EmployeeForm = () => {
     event.preventDefault();
 
     // Check if user exist in database
-    Axios.get(`http://localhost:3001/check_username/${username}`)
+    Axios.get(`http://localhost:8080/check_username/${username}`)
       .then((response) => {
         if (response.data.exists) {
           window.alert(
@@ -22,7 +22,7 @@ const EmployeeForm = () => {
           );
         } else {
           // if user not exist
-          Axios.post(`http://localhost:3001/create`, {
+          Axios.post(`http://localhost:8080/create`, {
             firstname: firstname,
             lastname: lastname,
             username: username,

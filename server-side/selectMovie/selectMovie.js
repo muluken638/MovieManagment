@@ -133,6 +133,16 @@ router.get('/totaldramamovies', async (req, res) => {
     res.status(500).json({ error: 'An error occurred while retrieving the total romance movies.' });
   }
 });
+// select wish list 
+router.get("/wishlistview", async (req, res) => {
+  try {
+    const wishlist = await prisma.wishlist.findMany();
+    res.send(wishlist);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching wishlist");
+  }
+});
 
 // end point  for all action movies 
 router.get('/totalactionmovies', async (req, res) => {
