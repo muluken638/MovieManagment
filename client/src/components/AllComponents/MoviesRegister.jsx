@@ -23,7 +23,7 @@ const MovieRegistrationForm = () => {
     "Horror",
     "Comedy",
     "Drama",
-    "Sci-Fi",
+    "SciFi",
     "Documentary",
     "Animation",
     "Adventure",
@@ -109,8 +109,7 @@ const MovieRegistrationForm = () => {
           navigate("/movielist")
 
           setCast("");
-          Navigate("/movielist");
-
+        
         })
         .catch((error) => {
           console.log("Error:", error);

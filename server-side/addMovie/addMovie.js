@@ -65,6 +65,7 @@ router.post("/add-to-wishlist/:movieId", async (req, res) => {
       return res.status(400).json({ success: false, error: "Movie already in wishlist" });
     }
 
+
     // Create a new wishlist item
     const wishlistItem = await prisma.wishlist.create({
       data: {

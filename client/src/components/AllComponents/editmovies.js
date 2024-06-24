@@ -12,7 +12,7 @@ const EditMovies = () => {
   const [inputKey, setInputKey] = useState(0);
   const imageInputRef = useRef(null);
   const navigate = useNavigate();
-
+  
   const genres = [
     "Romance", "Action", "Horror", "Comedy", "Drama", "Sci-Fi", "Documentary", "Animation",
     "Adventure", "Thriller", "Fantasy", "Crime", "War", "History", "Music", "Mystery",

@@ -4,7 +4,7 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 // setting connection to sql serve
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+
 const path = require("path");
 const { PrismaClient } = require("@prisma/client");
 const cloudinary = require('cloudinary').v2;
