@@ -6,20 +6,8 @@ function Contact() {
         <MyNavbar/>
         
         <div>
-            <section className=" py-3 mb-2">
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-md-4 my-auto'>
-                            <h3 className='py-4'></h3>
-                        </div>
-                        <div className='col-md-8 my-auto'>
-                            <h6 className='float-end text-white'>
-                                Contact us/we are there for you</h6>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section className="section">
+            
+            <section className="section bg-slate-700 p-20">
                 <div className="container">
                     <div className="card shadow">
                         <div className="card-body">
