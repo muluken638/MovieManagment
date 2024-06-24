@@ -44,7 +44,7 @@ function Watchlist() {
         <Sidebar />
         <div className="flex-1 overflow-auto pl-3">
           <div>
-            <h1 className="pb-3">Categories</h1>
+            <h3 className="pb-3">Your Watchlist Categories</h3>
           </div>
           <div className="flex overflow-x-auto whitespace-nowrap scrollbar-hide" style={{ overflowX: "scroll" }}>
             <button className="bg-[#293A77] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => handleGenreClick("")}>
@@ -95,22 +95,10 @@ function Watchlist() {
                     <div>Genre: </div>
                     <div>
                       <h6 className="text-12">{movie.genre}</h6>
-                    </div>{" "}
+                    </div>
                   </div>
                 </div>
-                {/* <div className="flex justify-between align-bottom mb-2 px-2">
-                  <div
-                    className={`cursor-pointer ${heartStates[index] ? "text-red-500" : ""}`}
-                    onClick={() => handleHeartClick(index, movie._id)}
-                  >
-                    <span style={{ color: "red" }}>Like/Dislike</span>
-                    <FaHeart />
-                  </div>
-                  <div className="cursor-pointer" onClick={() => addToWishlist(movie._id)}>
-                    <span className="text-[#293A77] ">Add to wish list</span>
-                    <IoAdd />
-                  </div>
-                </div> */}
+               
               </div>
             ))}
           </div>

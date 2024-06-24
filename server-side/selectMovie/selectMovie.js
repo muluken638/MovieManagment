@@ -204,9 +204,9 @@ router.get("/wishlistview", async (req, res) => {
 // end point  for all action movies 
 router.get('/totalactionmovies', async (req, res) => {
   try {
-    const totalActionMovies = await prisma.movie.count({
+    const totalActionMovies = await prisma.userRegistration.count({
       where: {
-        genre: 'Action',
+        role:0,
       },
     });
 

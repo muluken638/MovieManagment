@@ -40,9 +40,9 @@ const CustomerReport = () => {
 
 // fetching employee list 
   const fetchUsersTotal = () => {
-    Axios.get('http://localhost:8080/totalusers')
+    Axios.get('http://localhost:8080/totalactionmovies')
       .then((response) => {
-        setUserstotal(response.data.total_users);
+        setUserstotal(response.data.total_action_movies);
       })
       .catch((error) => {
         console.log('error', error);

@@ -13,7 +13,7 @@ const Report = () => {
 
 
   const [genreData, setGenreData] = useState([]);
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#9b59b6', '#e74c3c', '#34495e', '#2980b9', '#f1c40f', '#7f8c8d'];
+  // const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#9b59b6', '#e74c3c', '#34495e', '#2980b9', '#f1c40f', '#7f8c8d'];
   useEffect(() => {
     const fetchGenreData = async () => {
       try {
@@ -33,13 +33,28 @@ const Report = () => {
     genre: item.genre,
     count: item.count,
   }));
-
+  function getRandomColor() {
+    // Generate random RGB values
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+  
+    // Convert the RGB values to a hexadecimal color code
+    const redHex = r.toString(16).padStart(2, '0');
+    const greenHex = g.toString(16).padStart(2, '0');
+    const blueHex = b.toString(16).padStart(2, '0');
+  
+    return `#${redHex}${greenHex}${blueHex}`;
+  }
  // Pie Chart Data
  const pieChartData = genreData.map((item, index) => ({
   name: item.genre,
   value: item.count,
-  color: COLORS[index % COLORS.length],
+  color: getRandomColor(),
 }));
+ // Pie Chart Data
+
+
 
   return (
     <>
