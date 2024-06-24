@@ -6,6 +6,39 @@ const cloudinary = require('cloudinary').v2;
 const fs = require('fs').promises;
 
 
+// API endpoint to get the latest 10 service records
+router.get('/services', async (req, res) => {
+  try {
+    const services = await prisma.movie.findMany({
+      orderBy: {
+        id: 'desc',
+      },
+      take: 10,
+    });
+    res.json(services);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching the services.' });
+  }
+});
+
+// API endpoint to get a random service record
+router.get('/FilmsPostures', async (req, res) => {
+  try {
+    const services = await prisma.movie.findMany({
+      orderBy: {
+        id: 'desc',
+      },
+      take: 10,
+    });
+    res.json(services);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching the services.' });
+  }
+});
+
+
 router.get("/totalmovies", async (req, res) => {
     try {
       const totalMovies = await prisma.movie.count();

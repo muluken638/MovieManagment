@@ -1,41 +1,58 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import logo from "../image/4.jpg";
 import { Link } from "react-router-dom";
+import { IoIosMenu } from "react-icons/io";
 const MyNavbar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+ 
+  const [sticky, setSticky] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  const menulinks = [
+    { name: "HOME", Link: "/home" },
+    { name: "ABOUT", Link: "/about" },
+    { name: "CONTACT", Link: "/contact" },
+    // { name: "PROJECTS", Link: "#projects" },
+    { name: "LOGIN", Link: "/login" },
 
+  ]
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      const nav = document.querySelector("nav");
+      window.scrollY > 0 ? setSticky(true) : setSticky(false)
+    })
+  })
   return (
-    <nav className="bg-[#293A77] py-3 fixed-top shadow ">
-      <div className="container mx-auto flex items-center justify-between">
-        {/* Company Logo and Name */}
-        <div className="flex items-center ">
-          <img
-            src={logo}
-            alt="Company Logo"
-            className="h-8  w-8  hidden sm:block rounded-full"
-          />
-          <span className=" text-white font-bold text-lg hidden sm:block pl-2">
-            Company Name
-          </span>
+    <nav className={`fixed w-full left-0 top-0 z-[999] ${sticky ? 'bg-white/60 text-gray-900' : 'text-white'}`}>
+      <div className="flex items-center justify-between">
+        <div className="mx-7">
+          <h4 className="text-4xl uppercase font-bold text-blue-900">
+            CI<span className="text-cyan-600">NE</span>HUB
+          </h4>
         </div>
-
-        <div class="flex justify-center ">
-          <ul class="flex space-x-4 align-middle gap-2">
-          <Link to="/home" className=" hover:bg-blue-500 cursor-pointer no-underline p-1 hover:rounded text-white ">Home</Link>
-            <Link to="/about" className=" hover:bg-blue-500 cursor-pointer no-underline p-1 hover:rounded text-white ">About</Link>
-            <Link to="/contact" className=" hover:bg-blue-500 cursor-pointer no-underline p-1 hover:rounded text-white ">Contact</Link>
-            <Link to ="/login" className=" hover:bg-blue-500 cursor-pointer no-underline p-1 text-white  hover:rounded" >Login</Link>
+        <div className={` ${sticky ? 'md:bg-white/60 bg-white' : 'bg-white text-gray-900'} md:block hidden px-7 py-2 font-medium  rounded-bl-full`}>
+          <ul className="flex items-center gap-1 py-2 text-lg no-underline cursor-pointer">
+            {menulinks?.map((menu, i) => (
+              <li key={i} className="px-6 hover:text-cyan-600">
+                <a href={menu?.Link}>{menu?.name}</a>
+              </li>
+            ))}
           </ul>
         </div>
-
-      
+        <div onClick={() => setOpen(!open)} className={`z-[999] ${open ? 'text-gray-900' : 'text-gray-100'} text-3xl md:hidden m-5 `}>
+          <IoIosMenu />
+        </div>
+        <div className={`md:hidden  text-gray-900 absolute w-2/3 h-screen px-7  py-2 font-4xl cursor-pointer bg-white top-0 duration-300 ${open ? 'right-0' : 'right-[-100%]'}`}>
+          <ul className="flex flex-col justify-center h-full gap-10 py-2 glow no-underline cursor-pointer">
+            {
+              menulinks?.map((menu, i) =>
+                <li key={i} className="px-6 hover:text-cyan-600 no-underline">
+                  <a href={menu?.Link}>{menu?.name}</a>
+                </li>)
+            }
+          </ul>
+        </div>
       </div>
-    </nav>
-  );
+    </nav>)
 };
 
 export default MyNavbar;
